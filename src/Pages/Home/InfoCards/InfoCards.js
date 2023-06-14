@@ -7,22 +7,22 @@ const InfoCards = () => {
   const cardsData = [
     {
       id: 1,
-      name: "Card 1",
-      description: "This is the description for Card 1.",
+      name: "Opening Hours",
+      description: "Lorem Ipsum is simply dummy text of the pri",
       bgClass: "bg-gradient-to-r from-primary to-secondary ",
       img: clock,
     },
     {
       id: 2,
-      name: "Card 2",
-      description: "This is the description for Card 2.",
+      name: "Visit our location",
+      description: "Brooklyn, NY 10036, United States",
       bgClass: "bg-gray-800",
       img: marker,
     },
     {
       id: 3,
-      name: "Card 3",
-      description: "This is the description for Card 3.",
+      name: "Contact us now",
+      description: "+000 123 456789",
       bgClass: "bg-gradient-to-r from-primary to-secondary",
       img: phone,
     },
