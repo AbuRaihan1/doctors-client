@@ -4,12 +4,11 @@ import people2 from "../../../assets/images/people2.png";
 import people3 from "../../../assets/images/people3.png";
 import Review from "./Review";
 const Reviews = () => {
-
-    const description = `Dr. Doctor's Name demonstrated exceptional professionalism and expertise throughout our consultation. They took the time to listen attentively to our concerns, allowing us to fully explain our symptoms and medical history. `
+  const description = `Dr. Doctor's Name demonstrated exceptional professionalism and expertise throughout our consultation. They took the time to listen attentively to our concerns. `;
   const reviewsData = [
     {
       id: 1,
-      description:description,
+      description: description,
       img: people1,
       name: "Ashley Scrogy",
       location: "California",
