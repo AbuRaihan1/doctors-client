@@ -5,11 +5,7 @@ import { DayPicker } from "react-day-picker";
 const AppointmentBanner = ({ selectedDay, setSelectedDay }) => {
   let footer = <p>Please pick a day.</p>;
   if (selectedDay) {
-    footer = (
-      <p>
-        You have selected day : {format(selectedDay, "PP")}.
-      </p>
-    );
+    footer = <p>You have selected day : {format(selectedDay, "PP")}.</p>;
   }
   return (
     <>

@@ -1,11 +1,20 @@
-import React from 'react';
+import React, { useEffect, useState } from "react";
+import AppointmentItem from "./AppointmentItem";
 
-const AppointmentItems = ({selectedDay, setSelectedDay }) => {
-    return (
-        <div>
-            appointmetn items
-        </div>
-    );
+const AppointmentItems = ({ selectedDay, setSelectedDay }) => {
+  const [appointmentItems, setAppointmentItems] = useState([]);
+  useEffect(() => {
+    fetch("doctorsService.json")
+      .then((res) => res.json())
+      .then((data) => setAppointmentItems(data));
+  }, []);
+  return (
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {appointmentItems.map((appointmentItem, idx) => (
+        <AppointmentItem key={idx} appointmentItem={appointmentItem} />
+      ))}
+    </div>
+  );
 };
 
 export default AppointmentItems;
