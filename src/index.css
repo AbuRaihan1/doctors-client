@@ -6,5 +6,5 @@
   @apply from-primary to-secondary text-white;
 }
 .primary-button {
-  @apply bg-gradient-to-r gradient  outline-none;
+  @apply bg-gradient-to-r gradient  border-none outline-none;
 }
