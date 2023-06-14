@@ -5,6 +5,7 @@ import Services from "../Services/Services";
 import ServicesInfoText from "../Services/ServicesInfoText";
 import MakeAppointment from "../MakeAppointment/MakeAppointment";
 import Testimonial from "../Testimonial/Testimonial";
+import ContactUs from "../../ContactUs/ContactUs";
 const Home = () => {
   return (
     <div className="mx-5">
@@ -14,6 +15,7 @@ const Home = () => {
       <ServicesInfoText />
       <MakeAppointment />
       <Testimonial />
+      <ContactUs />
     </div>
   );
 };
