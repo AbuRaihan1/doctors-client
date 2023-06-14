@@ -16,7 +16,7 @@ const InfoCards = () => {
       id: 2,
       name: "Card 2",
       description: "This is the description for Card 2.",
-      bgClass: "bg-accent",
+      bgClass: "bg-gray-800",
       img: marker,
     },
     {
@@ -29,7 +29,9 @@ const InfoCards = () => {
   ];
 
   return (
-    <div className={`grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-6 mt-28`}>
+    <div
+      className={`grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-6 mt-28`}
+    >
       {cardsData.map((card) => (
         <InfoCard card={card} key={card.id} />
       ))}
