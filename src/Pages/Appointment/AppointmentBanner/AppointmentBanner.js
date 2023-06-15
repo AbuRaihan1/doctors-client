@@ -23,11 +23,10 @@ const AppointmentBanner = ({ selectedDay, setSelectedDay }) => {
               onSelect={setSelectedDay}
             />
           </div>
-          {/* <p>You have selected {format(selectedDay, "PP")}</p> */}
         </div>
       </div>
       <div className="text-center my-12">
-        <p className="text-secondary font-bold text-xl">{footer}</p>
+        <aside className="text-secondary font-bold text-xl">{footer}</aside>
       </div>
     </>
   );

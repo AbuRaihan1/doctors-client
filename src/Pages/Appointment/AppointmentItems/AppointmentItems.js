@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
-import AppointmentItem from "./AppointmentItem";
 import AppointmentModal from "../AppointmentModal/AppointmentModal";
+import AppointmentItem from "./AppointmentItem";
 
-const AppointmentItems = ({ selectedDay, setSelectedDay }) => {
+const AppointmentItems = ({ selectedDay }) => {
   const [appointmentItems, setAppointmentItems] = useState([]);
-  const [treatMent, setTreatMent] = useState(null);
+  const [treatMent, setTreatMent] = useState({});
   useEffect(() => {
     fetch("doctorsService.json")
       .then((res) => res.json())
@@ -19,7 +19,11 @@ const AppointmentItems = ({ selectedDay, setSelectedDay }) => {
           setTreatMent={setTreatMent}
         />
       ))}
-      <AppointmentModal treatMent={treatMent} />
+      <AppointmentModal
+        setTreatMent={setTreatMent}
+        selectedDay={selectedDay}
+        treatMent={treatMent}
+      />
     </div>
   );
 };

@@ -1,14 +1,8 @@
 import React from "react";
-import AppointmentModal from "../AppointmentModal/AppointmentModal";
 
 const AppointmentItem = ({ appointmentItem, setTreatMent }) => {
   const { name, slots } = appointmentItem;
-  const modalId = document.getElementById("booking-modal");
 
-  const onClickTwoFunctions = () => {
-    setTreatMent(appointmentItem);
-    modalId.showModal();
-  };
   return (
     <div className="my-10">
       <div className="card shadow-xl">
@@ -23,9 +17,10 @@ const AppointmentItem = ({ appointmentItem, setTreatMent }) => {
             <p className="my-2">{slots.length} spaces availabe</p>
             <div className="">
               <label
-                htmlFor="booking-modal"
-                className="btn primary-button"
-                onClick={onClickTwoFunctions}
+                htmlFor="booking_modal"
+                className={"btn primary-button"}
+                onClick={() => setTreatMent(appointmentItem)}
+                disabled={!slots.length}
               >
                 Book Appointment
               </label>
