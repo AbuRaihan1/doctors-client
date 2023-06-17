@@ -19,25 +19,43 @@ const Login = () => {
       <div className="py-4">
         <form onSubmit={handleSubmit(onSubmit)} className="mx-auto space-y-2">
           <div className="form-control w-full max-w-xs mx-auto">
-            <label className="label">
+            {/* <label className="label">
               <span className="label-text font-bold">Email</span>
-            </label>
+            </label> */}
             <input
-              {...register("example")}
+              {...register("email", { required: true })}
               className="input input-bordered w-full max-w-xs"
               type="email"
+              placeholder="Email"
             />
+            {errors.email?.type === "required" && (
+              <p className="text-red-700 mt-2 font-bold text-left">
+                Email is required
+              </p>
+            )}
           </div>
 
           <div className="form-control w-full max-w-xs mx-auto">
-            <label className="label">
+            {/* <label className="label">
               <span className="label-text font-bold">Password</span>
-            </label>
+            </label> */}
             <input
-              {...register("password", { required: true })}
+              {...register("password", {
+                required: "Password is required",
+                minLength: {
+                  value: 6,
+                  message: "Password at least 6 character",
+                },
+              })}
               className="input input-bordered w-full max-w-xs"
               type="password"
+              placeholder="Password"
             />
+            {errors.password && (
+              <p className="text-red-700 mt-2 font-bold text-left">
+                {errors.password.message}
+              </p>
+            )}
             <label className="label font-bold cursor-pointer text-secondary">
               Forgot Password ?
             </label>
