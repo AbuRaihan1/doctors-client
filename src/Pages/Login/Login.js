@@ -5,7 +5,8 @@ import { AuthContext } from "../../Context/AuthContext";
 import { toast } from "react-hot-toast";
 
 const Login = () => {
-  const { loginUser, forgotPassword } = useContext(AuthContext);
+  const { loginUser, forgotPassword, loginWithGoogle, setLoading } =
+    useContext(AuthContext);
   const [loginError, setLoginError] = useState("");
   const [email, setEmail] = useState("");
 
@@ -37,6 +38,18 @@ const Login = () => {
 
   const handleForgotPassword = () => {
     forgotPassword(email);
+  };
+
+  const handleGoogleLogin = () => {
+    loginWithGoogle()
+      .then((result) => {
+        console.log(result.user);
+        navigate(from, { replace: true });
+      })
+      .catch((error) => {
+        const errorMessage = error.message;
+        console.log(errorMessage);
+      });
   };
   return (
     <div className="text-center shadow-xl w-full sm:w-[400px] mx-auto mt-5 rounded-2xl py-5">
@@ -103,7 +116,10 @@ const Login = () => {
               </Link>
             </p>
             <div className="divider max-w-xs mx-auto">OR</div>
-            <button className="btn btn-outline max-w-xs w-full">
+            <button
+              onClick={handleGoogleLogin}
+              className="btn btn-outline max-w-xs w-full"
+            >
               Continue with google
             </button>
           </div>

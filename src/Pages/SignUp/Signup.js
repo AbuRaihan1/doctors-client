@@ -1,11 +1,16 @@
 import React, { useContext } from "react";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, Navigate, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../Context/AuthContext";
 import { toast } from "react-hot-toast";
 
 const Signup = () => {
-  const { createUser, updateUserProfile } = useContext(AuthContext);
+  const { createUser, updateUserProfile, loginWithGoogle } =
+    useContext(AuthContext);
+
+  let navigate = useNavigate();
+  let location = useLocation();
+  let from = location.state?.from?.pathname || "/";
   const {
     register,
     handleSubmit,
@@ -38,6 +43,18 @@ const Signup = () => {
           duration: 2000,
           position: "top-right",
         });
+      });
+  };
+
+  const handleGoogleLogin = () => {
+    loginWithGoogle()
+      .then((result) => {
+        console.log(result.user);
+        navigate(from, { replace: true });
+      })
+      .catch((error) => {
+        const errorMessage = error.message;
+        console.log(errorMessage);
       });
   };
   return (
@@ -110,7 +127,10 @@ const Signup = () => {
               </Link>
             </p>
             <div className="divider max-w-xs mx-auto">OR</div>
-            <button className="btn btn-outline max-w-xs w-full">
+            <button
+              onClick={handleGoogleLogin}
+              className="btn btn-outline max-w-xs w-full"
+            >
               Continue with google
             </button>
           </div>

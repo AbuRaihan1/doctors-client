@@ -8,6 +8,7 @@ import {
   updateProfile,
   sendPasswordResetEmail,
   GoogleAuthProvider,
+  signInWithPopup,
 } from "firebase/auth";
 import app from "../firebase/firebase.config";
 import { toast } from "react-hot-toast";
@@ -50,7 +51,11 @@ const AuthProvider = ({ children }) => {
         toast.error("Enter your valid email address in email field");
       });
   };
-  
+
+  const loginWithGoogle = () => {
+    setLoading(true);
+    return signInWithPopup(auth, googleProvider);
+  };
   const logOut = () => {
     setLoading(true);
     return signOut(auth);
@@ -62,6 +67,7 @@ const AuthProvider = ({ children }) => {
     logOut,
     loading,
     forgotPassword,
+    loginWithGoogle,
     user,
   };
 
