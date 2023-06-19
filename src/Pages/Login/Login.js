@@ -1,8 +1,17 @@
-import React from "react";
+import React, { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { AuthContext } from "../../Context/AuthContext";
+import { toast } from "react-hot-toast";
 
 const Login = () => {
+  const { loginUser, forgotPassword } = useContext(AuthContext);
+  const [loginError, setLoginError] = useState("");
+  const [email, setEmail] = useState("");
+
+  let navigate = useNavigate();
+  let location = useLocation();
+  let from = location.state?.from?.pathname || "/";
   const {
     register,
     handleSubmit,
@@ -10,9 +19,25 @@ const Login = () => {
     formState: { errors },
   } = useForm();
 
-  const onSubmit = (data) => console.log(data);
+  const onSubmit = (data) => {
+    loginUser(data.email, data.password)
+      .then((userCredential) => {
+        const user = userCredential.user;
+        console.log(user);
+        setLoginError("");
+        navigate(from, { replace: true });
+        toast.success("Login successful");
+      })
+      .catch((error) => {
+        console.log(error);
+        setLoginError(error.message);
+        toast.error("Login unsuccessful");
+      });
+  };
 
-  console.log(watch("example"));
+  const handleForgotPassword = () => {
+    forgotPassword(email);
+  };
   return (
     <div className="text-center shadow-xl w-full sm:w-[400px] mx-auto mt-5 rounded-2xl py-5">
       <h1 className="text-4xl">Login</h1>
@@ -27,6 +52,7 @@ const Login = () => {
               className="input input-bordered w-full max-w-xs"
               type="email"
               placeholder="Email"
+              onChange={(e) => setEmail(e.target.value)}
             />
             {errors.email?.type === "required" && (
               <p className="text-red-700 mt-2 font-bold text-left">
@@ -51,12 +77,14 @@ const Login = () => {
               type="password"
               placeholder="Password"
             />
-            {errors.password && (
-              <p className="text-red-700 mt-2 font-bold text-left">
-                {errors.password.message}
-              </p>
+
+            {loginError && (
+              <p className="text-red-600 font-bold">{loginError}</p>
             )}
-            <label className="label font-bold cursor-pointer text-secondary">
+            <label
+              onClick={handleForgotPassword}
+              className="label font-bold cursor-pointer text-secondary"
+            >
               Forgot Password ?
             </label>
           </div>
