@@ -38,7 +38,7 @@ const AuthProvider = ({ children }) => {
   }, []);
 
   const updateUserProfile = (userInfo) => {
-    return updateProfile(user, userInfo);
+    return updateProfile(auth.currentUser, userInfo);
   };
 
   const forgotPassword = (email) => {

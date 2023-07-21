@@ -9,6 +9,7 @@ const Signup = () => {
     useContext(AuthContext);
 
   let navigate = useNavigate();
+  let navigateToHome = useNavigate();
   let location = useLocation();
   let from = location.state?.from?.pathname || "/";
   const {
@@ -27,7 +28,9 @@ const Signup = () => {
           displayName: data.name,
         };
         updateUserProfile(userInfo)
-          .then(() => {})
+          .then(() => {
+            navigateToHome("/");
+          })
           .catch((error) => {
             console.log(error);
           });

@@ -1,11 +1,22 @@
-import { format } from "date-fns";
+import { format, toDate } from "date-fns";
+import { useContext } from "react";
+import { AuthContext } from "../../../Context/AuthContext";
+import { toast } from "react-hot-toast";
 
-const AppointmentModal = ({ treatMent, setTreatMent, selectedDay }) => {
+const AppointmentModal = ({
+  treatMent,
+  setTreatMent,
+  selectedDay,
+  refetch,
+}) => {
   // here i'm using if treatment is null, then it will just return something, otherwise it will return error.
+
+  const date = format(selectedDay, "PP");
+  const { user } = useContext(AuthContext);
   if (!treatMent) {
     return;
   }
-  const { name, slots } = treatMent;
+  const { name: treatMentName, slots } = treatMent;
   const handleBooking = (e) => {
     e.preventDefault();
     const form = e.target;
@@ -13,8 +24,34 @@ const AppointmentModal = ({ treatMent, setTreatMent, selectedDay }) => {
     const name = form.name.value;
     const email = form.email.value;
     const phone = form.phone.value;
-    console.log(slot, name, email, phone);
-    setTreatMent(null);
+
+    const booking = {
+      appointmentDate: date,
+      treatMent: treatMentName,
+      patient: name,
+      slot,
+      email,
+      phone,
+    };
+
+    fetch("http://localhost:5000/bookings", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(booking),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.acknowledged) {
+          setTreatMent(null);
+          toast.success("Successfully appointented");
+          refetch();
+        }
+        else {
+          toast.error(data.message);
+        }
+      });
   };
 
   return (
@@ -29,7 +66,7 @@ const AppointmentModal = ({ treatMent, setTreatMent, selectedDay }) => {
           >
             ✕
           </label>
-          <h3 className="font-bold text-lg">{name}</h3>
+          <h3 className="font-bold text-lg">{treatMentName}</h3>
           <div className="inputs mt-10">
             <input
               type="text"
@@ -50,17 +87,27 @@ const AppointmentModal = ({ treatMent, setTreatMent, selectedDay }) => {
               type="text"
               placeholder="Name"
               className="input input-bordered w-full mb-4"
-            />
-            <input
-              name="phone"
-              type="text"
-              placeholder="Phone"
-              className="input input-bordered w-full mb-4"
+              defaultValue={
+                user?.displayName
+                  ? user.displayName
+                  : "Please login to continue"
+              }
+              disabled
             />
             <input
               name="email"
               type="email"
               placeholder="Email"
+              className="input input-bordered w-full mb-4"
+              defaultValue={
+                user?.email ? user.email : "please login to continue"
+              }
+              disabled
+            />
+            <input
+              name="phone"
+              type="text"
+              placeholder="Phone"
               className="input input-bordered w-full mb-4"
             />
             <input
