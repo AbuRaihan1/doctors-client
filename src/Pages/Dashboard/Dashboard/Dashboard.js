@@ -1,9 +1,11 @@
 import React from "react";
+import Navbar from "../../Shared/Navbar/Navbar";
+import Footer from "../../Shared/Footer/Footer";
 
 const Dashboard = () => {
   return (
     <div>
-      <h1>dashboard</h1>
+       <h2>dashboard</h2>
     </div>
   );
 };
